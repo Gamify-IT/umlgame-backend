@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>de.unistuttgart</groupId>
-    <artifactId>uml-game-backend</artifactId>
+    <artifactId>umlgame-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Tower Defense Backend</name>
     <description>Backend for the uml-game</description>
