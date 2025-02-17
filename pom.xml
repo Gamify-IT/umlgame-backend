@@ -146,7 +146,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>de.unistuttgart.umlgamebackend.UmlGameServiceApplication</mainClass>
+                            <mainClass>UmlGameServiceApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
