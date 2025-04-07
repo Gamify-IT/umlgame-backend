@@ -27,11 +27,7 @@ public class ConfigurationDTO {
     @Nullable
     String id;
 
-    /**
-     * A graph representation for the UML game.
-     */
-    @Valid
-    Object graph;
+    String graph;
 
     /**
      * A textual description of the task.
@@ -43,7 +39,7 @@ public class ConfigurationDTO {
      */
     TaskType taskType;
 
-    public ConfigurationDTO(final Object graph, final String text, final TaskType taskType) {
+    public ConfigurationDTO(final String graph, final String text, final TaskType taskType) {
         this.graph = graph;
         this.text = text;
         this.taskType = taskType;
@@ -58,19 +54,4 @@ public class ConfigurationDTO {
         return Objects.equals(graph, other.graph) && Objects.equals(text, other.text) && taskType == other.taskType;
     }
 
-    /**
-     * Enum representing the possible types of tasks in the UML game.
-     */
-    public enum TaskType {
-        COMPLETION(0),
-        ERRORHUNT(1),
-        CODETOUML(2),
-        UMLTOCODE(3);
-
-        private final int value;
-
-        TaskType(int value) {
-            this.value = value;
-        }
-    }
 }

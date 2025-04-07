@@ -7,6 +7,8 @@ import de.unistuttgart.umlgamebackend.repositories.ConfigurationRepository;
 import de.unistuttgart.gamifyit.authentificationvalidator.JWTValidatorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +39,7 @@ public class ConfigService {
 
     @Autowired
     private JWTValidatorService jwtValidatorService;
-
+    
     /**
      * Search a configuration by given id
      *

@@ -4,14 +4,9 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.scheduling.config.Task;
 import org.springframework.validation.annotation.Validated;
-
 import javax.persistence.*;
 import javax.validation.Valid;
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * The Configuration.class contains all data that has to be stored to configure a finitequiz game.
@@ -29,11 +24,11 @@ public class Configuration {
     @Id
     String id;
 
-    Object graph;
+    String graph;
 
     String text;
 
-    ConfigurationDTO.TaskType taskType;
+    TaskType taskType;
 
     /**
      * The volume level that is setted by the player.
@@ -41,11 +36,12 @@ public class Configuration {
     Integer volumeLevel;
 
 
-    public Configuration(Object graph, String text, ConfigurationDTO.TaskType taskType) {
+    public Configuration(String graph, String text, TaskType taskType) {
         this.graph = graph;
         this.text = text;
         this.taskType = taskType;
     }
+
 
 
 }
