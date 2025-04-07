@@ -1,6 +1,5 @@
 package de.unistuttgart.umlgamebackend.controller;
 
-import de.unistuttgart.umlgamebackend.data.statistic.ProblematicQuestion;
 import de.unistuttgart.umlgamebackend.data.statistic.TimeSpentDistribution;
 import de.unistuttgart.umlgamebackend.service.StatisticService;
 import de.unistuttgart.gamifyit.authentificationvalidator.JWTValidatorService;

@@ -1,8 +1,6 @@
 package de.unistuttgart.umlgamebackend.service;
 
-import de.unistuttgart.umlgamebackend.data.Configuration;
 import de.unistuttgart.umlgamebackend.data.GameResult;
-import de.unistuttgart.umlgamebackend.data.statistic.ProblematicQuestion;
 import de.unistuttgart.umlgamebackend.data.statistic.TimeSpentDistribution;
 import de.unistuttgart.umlgamebackend.repositories.GameResultRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
