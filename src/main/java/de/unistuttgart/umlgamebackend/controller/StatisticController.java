@@ -26,5 +26,20 @@ import java.util.UUID;
 @Validated
 public class StatisticController {
 
+    @Autowired
+    private StatisticService statisticService;
 
+    @Autowired
+    private JWTValidatorService jwtValidatorService;
+
+    @Operation(summary = "Get the time spent distribution of a configuration")
+    @GetMapping("/{id}/time-spent")
+    public List<TimeSpentDistribution> getTimeSpentStatistcOfMinigame(
+            @CookieValue("access_token") final String accessToken,
+            @PathVariable final UUID id
+    ) {
+        jwtValidatorService.validateTokenOrThrow(accessToken);
+        log.debug("get time spent statistic of configuration {}", id);
+        return statisticService.getTimeSpentDistributions(id);
+    }
 }

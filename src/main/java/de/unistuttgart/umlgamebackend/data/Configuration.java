@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.scheduling.config.Task;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
@@ -26,14 +27,25 @@ public class Configuration {
      * A unique identifier for the configuration.
      */
     @Id
-    @GeneratedValue(generator = "uuid")
-    UUID id;
+    String id;
 
+    Object graph;
+
+    String text;
+
+    ConfigurationDTO.TaskType taskType;
 
     /**
      * The volume level that is setted by the player.
      */
     Integer volumeLevel;
+
+
+    public Configuration(Object graph, String text, ConfigurationDTO.TaskType taskType) {
+        this.graph = graph;
+        this.text = text;
+        this.taskType = taskType;
+    }
 
 
 }

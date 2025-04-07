@@ -45,4 +45,8 @@ public class StatisticService {
             }
         });
     }
+
+    public List<TimeSpentDistribution> getTimeSpentDistributions(UUID id) {
+        return List.of();
+    }
 }
