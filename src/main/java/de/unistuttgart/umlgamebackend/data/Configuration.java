@@ -25,8 +25,9 @@ public class Configuration {
     String id;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @Valid
     List<UmlTask> taskList;
+
+    Integer volumeLevel;
 
     public void setVolumeLevel(Integer volumeLevel) {
 

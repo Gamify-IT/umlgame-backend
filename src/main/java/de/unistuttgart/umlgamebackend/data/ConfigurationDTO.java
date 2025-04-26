@@ -24,8 +24,8 @@ public class ConfigurationDTO {
     @Nullable
     String id;
 
-
-    @Valid
     List<UmlTask> taskList;
+
+    Integer volumeLevel;
 
 }
