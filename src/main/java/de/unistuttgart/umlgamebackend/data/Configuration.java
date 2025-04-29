@@ -22,6 +22,7 @@ import java.util.UUID;
 public class Configuration {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     String id;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

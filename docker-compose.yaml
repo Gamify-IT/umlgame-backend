@@ -67,7 +67,7 @@ services:
 
   overworld-backend:
     container_name:   overworld-backend
-    image: ghcr.io/gamify-it/overworld-backend
+    image: ghcr.io/gamify-it/overworld-backend:umlgame-integration
     restart: always
     pull_policy: always
     expose:
@@ -116,13 +116,13 @@ services:
     expose:
       - "80"
 
-  umlgame:
-    container_name: umlgame
-    image: ghcr.io/gamify-it/umlgame:main
-    restart: always
-    pull_policy: always
-    expose:
-      - "80"
+  #umlgame:
+  #  container_name: umlgame
+  #  image: ghcr.io/gamify-it/umlgame:main
+  #  restart: always
+  #  pull_policy: always
+  #  expose:
+  #    - "80"
 
   lecturer-interface:
     container_name: lecturer-interface

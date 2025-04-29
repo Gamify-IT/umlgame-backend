@@ -3,6 +3,7 @@ package de.unistuttgart.umlgamebackend.service;
 import de.unistuttgart.umlgamebackend.clients.OverworldClient;
 import de.unistuttgart.umlgamebackend.data.*;
 import de.unistuttgart.umlgamebackend.data.mapper.ConfigurationMapper;
+import de.unistuttgart.umlgamebackend.data.mapper.UmlTaskMapper;
 import de.unistuttgart.umlgamebackend.repositories.ConfigurationRepository;
 import de.unistuttgart.gamifyit.authentificationvalidator.JWTValidatorService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,10 @@ import java.util.stream.Collectors;
 public class ConfigService {    
 
     @Autowired
-    ConfigurationMapper configurationMapper;    
+    ConfigurationMapper configurationMapper;
+
+    @Autowired
+    UmlTaskMapper umlTaskMapper;
 
     @Autowired
     ConfigurationRepository configurationRepository;    
@@ -131,6 +135,7 @@ public class ConfigService {
             throw new IllegalArgumentException("id or configurationDTO is null");
         }
         final Configuration configuration = getConfiguration(id);
+        configuration.setTaskList(umlTaskMapper.umlTaskDTOsToUmlTasks(configurationDTO.getTaskList()));
         final Configuration updatedConfiguration = configurationRepository.save(configuration);
         return configurationMapper.configurationToConfigurationDTO(updatedConfiguration);
     }

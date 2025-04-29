@@ -2,6 +2,8 @@ package de.unistuttgart.umlgamebackend.data;
 
 import java.util.List;
 import java.util.UUID;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.validation.Valid;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -22,9 +24,10 @@ public class ConfigurationDTO {
      * A unique identifier for the configuration.
      */
     @Nullable
+    @GeneratedValue(strategy = GenerationType.AUTO)
     String id;
 
-    List<UmlTask> taskList;
+    List<UmlTaskDTO> taskList;
 
     Integer volumeLevel;
 
