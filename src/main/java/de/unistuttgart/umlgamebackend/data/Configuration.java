@@ -4,10 +4,8 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.lang.Nullable;
 import org.springframework.validation.annotation.Validated;
 import javax.persistence.*;
-import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,7 +21,7 @@ public class Configuration {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    String id;
+    UUID id;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<UmlTask> taskList;

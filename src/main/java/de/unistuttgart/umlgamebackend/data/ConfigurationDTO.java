@@ -25,7 +25,7 @@ public class ConfigurationDTO {
      */
     @Nullable
     @GeneratedValue(strategy = GenerationType.AUTO)
-    String id;
+    UUID id;
 
     List<UmlTaskDTO> taskList;
 
