@@ -20,7 +20,7 @@ import java.util.UUID;
 public class Configuration {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "uuid")
     UUID id;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

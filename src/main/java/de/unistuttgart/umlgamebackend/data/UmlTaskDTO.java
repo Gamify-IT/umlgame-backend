@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 
 @Data
@@ -16,7 +17,10 @@ import javax.persistence.*;
 public class UmlTaskDTO {
 
     @Id
-    String id;
+    @GeneratedValue(generator = "uuid")
+    UUID id;
+
+    String taskNumber;
 
     String graph;
 

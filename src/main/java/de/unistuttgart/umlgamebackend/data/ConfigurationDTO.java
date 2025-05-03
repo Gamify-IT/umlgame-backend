@@ -24,7 +24,7 @@ public class ConfigurationDTO {
      * A unique identifier for the configuration.
      */
     @Nullable
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "uuid")
     UUID id;
 
     List<UmlTaskDTO> taskList;
