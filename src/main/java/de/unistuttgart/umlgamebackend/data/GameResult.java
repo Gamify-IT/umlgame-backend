@@ -69,7 +69,6 @@ public class GameResult {
 
     public GameResult(
         final long score,
-        final long timeSpent,
         final int rewards,
         final UUID configurationAsUUID,
         final String playerId

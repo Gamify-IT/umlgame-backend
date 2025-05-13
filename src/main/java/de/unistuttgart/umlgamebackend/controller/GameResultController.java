@@ -37,7 +37,7 @@ public class GameResultController {
         jwtValidatorService.validateTokenOrThrow(accessToken);
         final String userId = jwtValidatorService.extractUserId(accessToken);
         log.debug("save game result for userId {}: {}", userId, gameResultDTO);
-        gameResultService.saveGameResult();
+        gameResultService.saveGameResult(gameResultDTO, userId, accessToken);
         return gameResultDTO;
     }
 }
