@@ -1,10 +1,15 @@
 package de.unistuttgart.umlgamebackend.controller;
 
+import de.unistuttgart.gamifyit.authentificationvalidator.JWTValidatorService;
 import de.unistuttgart.umlgamebackend.data.ConfigurationDTO;
 import de.unistuttgart.umlgamebackend.data.mapper.ConfigurationMapper;
 import de.unistuttgart.umlgamebackend.repositories.ConfigurationRepository;
 import de.unistuttgart.umlgamebackend.service.ConfigService;
-import de.unistuttgart.gamifyit.authentificationvalidator.JWTValidatorService;
+import java.io.IOException;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
@@ -12,12 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.validation.Valid;
-import java.io.IOException;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 /**
  * This controller handles all game-configuration-related REST-APIs
@@ -30,6 +29,7 @@ import java.util.UUID;
 public class ConfigController {
 
     public static final List<String> LECTURER = List.of("lecturer");
+
     @Autowired
     ConfigurationRepository configurationRepository;
 
@@ -61,14 +61,12 @@ public class ConfigController {
 
     @GetMapping("/{id}/volume")
     public ConfigurationDTO getAllConfiguration(
-            @CookieValue("access_token") final String accessToken,
-            @PathVariable final UUID id
+        @CookieValue("access_token") final String accessToken,
+        @PathVariable final UUID id
     ) {
         jwtValidatorService.validateTokenOrThrow(accessToken);
         log.debug("get configuration {}", id);
-        return configurationMapper.configurationToConfigurationDTO(
-                configService.getAllConfigurations(id, accessToken)
-        );
+        return configurationMapper.configurationToConfigurationDTO(configService.getAllConfigurations(id, accessToken));
     }
 
     @PostMapping("")
@@ -105,6 +103,4 @@ public class ConfigController {
         log.debug("delete configuration {}", id);
         return configService.deleteConfiguration(id);
     }
-
-
 }

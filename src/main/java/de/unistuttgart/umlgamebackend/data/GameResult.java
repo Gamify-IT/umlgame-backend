@@ -1,21 +1,20 @@
 package de.unistuttgart.umlgamebackend.data;
 
 import de.unistuttgart.umlgamebackend.Constants;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * The GameResult.class contains all data that is saved after one finitequiz game.
@@ -66,13 +65,7 @@ public class GameResult {
     @Max(value = Constants.MAX_REWARDS, message = "Rewards cannot be higher than " + Constants.MAX_REWARDS)
     private int rewards;
 
-
-    public GameResult(
-        final long score,
-        final int rewards,
-        final UUID configurationAsUUID,
-        final String playerId
-    ) {
+    public GameResult(final long score, final int rewards, final UUID configurationAsUUID, final String playerId) {
         this.score = score;
         this.timeSpent = timeSpent;
         this.rewards = rewards;

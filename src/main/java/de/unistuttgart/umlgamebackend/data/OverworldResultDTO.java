@@ -1,16 +1,15 @@
 package de.unistuttgart.umlgamebackend.data;
 
 import de.unistuttgart.umlgamebackend.Constants;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.validation.annotation.Validated;
-
+import java.util.UUID;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * The OverworldResultDTO.class contains all the info that is sent to the Overworld-backend.

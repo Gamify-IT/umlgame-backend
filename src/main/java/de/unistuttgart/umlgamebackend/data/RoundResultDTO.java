@@ -1,5 +1,8 @@
 package de.unistuttgart.umlgamebackend.data;
 
+import java.util.UUID;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,10 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.lang.Nullable;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
 /**
  * The RoundResultDTO.class contains the round result related information.
@@ -34,5 +33,4 @@ public class RoundResultDTO {
     @NotNull(message = "answer cannot be null")
     @NotBlank(message = "answer cannot be blank")
     String answer;
-
 }

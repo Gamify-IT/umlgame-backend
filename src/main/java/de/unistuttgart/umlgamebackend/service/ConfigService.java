@@ -1,11 +1,17 @@
 package de.unistuttgart.umlgamebackend.service;
 
+import de.unistuttgart.gamifyit.authentificationvalidator.JWTValidatorService;
 import de.unistuttgart.umlgamebackend.clients.OverworldClient;
 import de.unistuttgart.umlgamebackend.data.*;
 import de.unistuttgart.umlgamebackend.data.mapper.ConfigurationMapper;
 import de.unistuttgart.umlgamebackend.data.mapper.UmlTaskMapper;
 import de.unistuttgart.umlgamebackend.repositories.ConfigurationRepository;
-import de.unistuttgart.gamifyit.authentificationvalidator.JWTValidatorService;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -15,19 +21,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
 /**
  * This service handles the logic for the ConfigController.class
  */
 @Service
 @Slf4j
 @Transactional
-public class ConfigService {    
+public class ConfigService {
 
     @Autowired
     ConfigurationMapper configurationMapper;
@@ -36,14 +36,31 @@ public class ConfigService {
     UmlTaskMapper umlTaskMapper;
 
     @Autowired
-    ConfigurationRepository configurationRepository;    
+    ConfigurationRepository configurationRepository;
 
     @Autowired
     private OverworldClient overworldClient;
 
     @Autowired
     private JWTValidatorService jwtValidatorService;
-    
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void createConfig() {
+        List<UmlTask> tasks = new ArrayList<>();
+        tasks.add(
+            new UmlTask(
+                UUID.randomUUID(),
+                "1",
+                "{\"cells\":[{\"type\":\"Rect\",\"attrs\":{\"line2\":{\"y1\":40,\"y2\":40},\"label\":{\"text\":\"Dog\",\"y\":12},\"secondaryLabel\":{\"text\":\"dogAttribut\",\"y\":32.5},\"thirdLabel\":{\"text\":\"dogMethode\",\"y\":47.5}},\"position\":{\"x\":122,\"y\":151},\"size\":{\"width\":100,\"height\":60},\"angle\":0,\"id\":\"23fec6c2-0ee1-4dc6-a5d4-202eea5a58e7\",\"z\":1},{\"type\":\"Rect\",\"attrs\":{\"line2\":{\"y1\":40,\"y2\":40},\"label\":{\"text\":\"Cat\",\"y\":12},\"secondaryLabel\":{\"text\":\"catAttribut\",\"y\":32.5},\"thirdLabel\":{\"text\":\"catMethode\",\"y\":47.5}},\"position\":{\"x\":172,\"y\":414},\"size\":{\"width\":100,\"height\":60},\"angle\":0,\"id\":\"fbbd00db-3668-482b-9cf4-480de9cfc801\",\"z\":2},{\"type\":\"standard.Link\",\"attrs\":{\"line\":{\"stroke\":\"black\",\"targetMarker\":{\"d\":\"M 20 0 L 10 5 L 0 0 L 10 -5 Z\",\"fill\":\"white\",\"stroke\":\"black\"}}},\"source\":{\"id\":\"23fec6c2-0ee1-4dc6-a5d4-202eea5a58e7\"},\"target\":{\"id\":\"fbbd00db-3668-482b-9cf4-480de9cfc801\"},\"id\":\"d4aee3ad-0140-431e-879c-1cdd93b896d0\",\"z\":3,\"labels\":[{\"attrs\":{\"text\":{\"fill\":\"black\",\"fontSize\":12,\"text\":\"1\"}},\"position\":{\"distance\":0.2,\"offset\":{\"x\":0,\"y\":-15},\"args\":{\"keepDirection\":true,\"keepAngle\":true}}},{\"attrs\":{\"text\":{\"fill\":\"black\",\"fontSize\":12,\"text\":\"dog\"}},\"position\":{\"distance\":0.2,\"offset\":{\"x\":0,\"y\":10},\"args\":{\"keepDirection\":true,\"keepAngle\":true}}},{\"attrs\":{\"text\":{\"fill\":\"black\",\"fontSize\":12,\"text\":\"2\"}},\"position\":{\"distance\":0.8,\"offset\":{\"x\":0,\"y\":-15},\"args\":{\"keepDirection\":true,\"keepAngle\":true}}},{\"attrs\":{\"text\":{\"fill\":\"black\",\"fontSize\":12,\"text\":\"cat\"}},\"position\":{\"distance\":0.8,\"offset\":{\"x\":0,\"y\":10},\"args\":{\"keepDirection\":true,\"keepAngle\":true}}},{\"attrs\":{\"text\":{\"fill\":\"black\",\"fontSize\":14,\"text\":\"blabla\"}},\"position\":{\"distance\":0.5,\"offset\":{\"x\":0,\"y\":10},\"args\":{\"keepDirection\":true,\"keepAngle\":true}}}]}]}",
+                "test text",
+                UmlTask.TaskType.COMPLETION
+            )
+        );
+        Configuration c = new Configuration();
+        c.setTaskList(tasks);
+        configurationRepository.save(c);
+    }
+
     /**
      * Search a configuration by given id
      *
@@ -57,13 +74,13 @@ public class ConfigService {
             throw new IllegalArgumentException("id is null");
         }
         return configurationRepository
-                .findById(id)
-                .orElseThrow(() ->
-                        new ResponseStatusException(
-                                HttpStatus.NOT_FOUND,
-                                String.format("There is no configuration with id %s.", id)
-                        )
-                );
+            .findById(id)
+            .orElseThrow(() ->
+                new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    String.format("There is no configuration with id %s.", id)
+                )
+            );
     }
 
     /**
@@ -81,28 +98,31 @@ public class ConfigService {
         }
         final String userId = jwtValidatorService.extractUserId(accessToken);
 
-        KeybindingDTO keyBindingVolumeLevel = overworldClient.getKeybindingStatistic(userId, "VOLUME_LEVEL", accessToken);
+        KeybindingDTO keyBindingVolumeLevel = overworldClient.getKeybindingStatistic(
+            userId,
+            "VOLUME_LEVEL",
+            accessToken
+        );
         Integer volumeLevel = Integer.parseInt(keyBindingVolumeLevel.getKey());
 
         Configuration config = configurationRepository
-                .findById(id)
-                .orElseThrow(() ->
-                        new ResponseStatusException(
-                                HttpStatus.NOT_FOUND,
-                                String.format("There is no configuration with id %s.", id)
-                        )
-                );
+            .findById(id)
+            .orElseThrow(() ->
+                new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    String.format("There is no configuration with id %s.", id)
+                )
+            );
         config.setVolumeLevel(volumeLevel);
         return configurationRepository
-                .findById(id)
-                .orElseThrow(() ->
-                        new ResponseStatusException(
-                                HttpStatus.NOT_FOUND,
-                                String.format("There is no configuration with id %s.", id)
-                        )
-                );
+            .findById(id)
+            .orElseThrow(() ->
+                new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    String.format("There is no configuration with id %s.", id)
+                )
+            );
     }
-
 
     /**
      * Save a configuration
@@ -116,7 +136,7 @@ public class ConfigService {
             throw new IllegalArgumentException("configurationDTO is null");
         }
         final Configuration savedConfiguration = configurationRepository.save(
-                configurationMapper.configurationDTOToConfiguration(configurationDTO)
+            configurationMapper.configurationDTOToConfiguration(configurationDTO)
         );
         return configurationMapper.configurationToConfigurationDTO(savedConfiguration);
     }
@@ -156,5 +176,4 @@ public class ConfigService {
         configurationRepository.delete(configuration);
         return configurationMapper.configurationToConfigurationDTO(configuration);
     }
-
 }

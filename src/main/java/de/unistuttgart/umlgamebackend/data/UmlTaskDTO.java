@@ -1,14 +1,12 @@
 package de.unistuttgart.umlgamebackend.data;
 
+import java.util.UUID;
+import javax.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-
-import javax.persistence.*;
-import java.util.UUID;
-
 
 @Data
 @NoArgsConstructor
@@ -30,6 +28,9 @@ public class UmlTaskDTO {
     TaskType taskType;
 
     public enum TaskType {
-        COMPLETION, ERRORHUNT, CODETOUML, UMLTOCODE
+        COMPLETION,
+        ERRORHUNT,
+        CODETOUML,
+        UMLTOCODE,
     }
 }

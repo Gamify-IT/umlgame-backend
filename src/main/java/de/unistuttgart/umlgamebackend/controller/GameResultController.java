@@ -1,16 +1,15 @@
 package de.unistuttgart.umlgamebackend.controller;
 
+import de.unistuttgart.gamifyit.authentificationvalidator.JWTValidatorService;
 import de.unistuttgart.umlgamebackend.data.GameResultDTO;
 import de.unistuttgart.umlgamebackend.service.GameResultService;
-import de.unistuttgart.gamifyit.authentificationvalidator.JWTValidatorService;
+import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 /**
  * This controller handles the game-result-related REST-APIs

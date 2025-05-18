@@ -2,8 +2,8 @@ package de.unistuttgart.umlgamebackend.data.mapper;
 
 import de.unistuttgart.umlgamebackend.data.UmlTask;
 import de.unistuttgart.umlgamebackend.data.UmlTaskDTO;
-import org.mapstruct.Mapper;
 import java.util.List;
+import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface UmlTaskMapper {

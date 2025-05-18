@@ -1,18 +1,17 @@
 package de.unistuttgart.umlgamebackend.controller;
 
+import de.unistuttgart.gamifyit.authentificationvalidator.JWTValidatorService;
 import de.unistuttgart.umlgamebackend.data.statistic.TimeSpentDistribution;
 import de.unistuttgart.umlgamebackend.service.StatisticService;
-import de.unistuttgart.gamifyit.authentificationvalidator.JWTValidatorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
+import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.UUID;
 
 /**
  * This controller handles all game-configuration-related REST-APIs
@@ -34,8 +33,8 @@ public class StatisticController {
     @Operation(summary = "Get the time spent distribution of a configuration")
     @GetMapping("/{id}/time-spent")
     public List<TimeSpentDistribution> getTimeSpentStatistcOfMinigame(
-            @CookieValue("access_token") final String accessToken,
-            @PathVariable final UUID id
+        @CookieValue("access_token") final String accessToken,
+        @PathVariable final UUID id
     ) {
         jwtValidatorService.validateTokenOrThrow(accessToken);
         log.debug("get time spent statistic of configuration {}", id);

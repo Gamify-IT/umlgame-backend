@@ -14,6 +14,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 public class KeybindingDTO {
+
     private String binding;
     private String key;
 }

@@ -1,10 +1,9 @@
 package de.unistuttgart.umlgamebackend.errorhandling;
 
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
-
-import java.util.List;
 
 @Getter
 @Setter

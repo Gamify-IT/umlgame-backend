@@ -4,17 +4,16 @@ import de.unistuttgart.umlgamebackend.clients.ResultClient;
 import de.unistuttgart.umlgamebackend.data.*;
 import de.unistuttgart.umlgamebackend.repositories.GameResultRepository;
 import feign.FeignException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * This service handles the logic for the GameResultController.class
@@ -30,7 +29,6 @@ public class GameResultService {
     @Autowired
     GameResultRepository gameResultRepository;
 
-
     private static int hundredScoreCount = 0;
 
     /**
@@ -42,9 +40,9 @@ public class GameResultService {
      * @throws IllegalArgumentException if at least one of the arguments is null
      */
     public void saveGameResult(
-            final @Valid GameResultDTO gameResultDTO,
-            final String userId,
-            final String accessToken
+        final @Valid GameResultDTO gameResultDTO,
+        final String userId,
+        final String accessToken
     ) {
         if (gameResultDTO == null || userId == null || accessToken == null) {
             throw new IllegalArgumentException("gameResultDTO or userId is null");
@@ -56,23 +54,23 @@ public class GameResultService {
         gameResultDTO.setRewards(rewards);
 
         final OverworldResultDTO resultDTO = new OverworldResultDTO(
-                gameResultDTO.getConfigurationAsUUID(),
-                resultScore,
-                userId,
-                rewards
+            gameResultDTO.getConfigurationAsUUID(),
+            resultScore,
+            userId,
+            rewards
         );
         try {
             resultClient.submit(accessToken, resultDTO);
             final GameResult result = new @Valid GameResult(
-                    gameResultDTO.getScore(),
-                    rewards,
-                    gameResultDTO.getConfigurationAsUUID(),
-                    userId
+                gameResultDTO.getScore(),
+                rewards,
+                gameResultDTO.getConfigurationAsUUID(),
+                userId
             );
             gameResultRepository.save(result);
         } catch (final FeignException.BadGateway badGateway) {
             final String warning =
-                    "The Overworld backend is currently not available. The result was NOT saved. Please try again later";
+                "The Overworld backend is currently not available. The result was NOT saved. Please try again later";
             log.error(warning + badGateway);
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, warning);
         } catch (final FeignException.NotFound notFound) {

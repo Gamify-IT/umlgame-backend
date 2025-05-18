@@ -1,11 +1,6 @@
 package de.unistuttgart.umlgamebackend.data;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.FieldDefaults;
-import org.springframework.validation.annotation.Validated;
-
+import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,7 +8,11 @@ import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * The RoundResult.class contains the round result related information.
@@ -31,6 +30,4 @@ public class RoundResult {
     @Id
     @GeneratedValue(generator = "uuid")
     UUID id;
-
-
 }

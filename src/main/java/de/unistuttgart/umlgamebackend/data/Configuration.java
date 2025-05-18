@@ -1,13 +1,13 @@
 package de.unistuttgart.umlgamebackend.data;
 
+import java.util.List;
+import java.util.UUID;
+import javax.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.validation.annotation.Validated;
-import javax.persistence.*;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * The Configuration.class contains all data that has to be stored to configure a finitequiz game.
@@ -28,7 +28,5 @@ public class Configuration {
 
     Integer volumeLevel;
 
-    public void setVolumeLevel(Integer volumeLevel) {
-
-    }
+    public void setVolumeLevel(Integer volumeLevel) {}
 }

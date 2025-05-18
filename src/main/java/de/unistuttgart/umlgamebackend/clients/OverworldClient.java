@@ -21,8 +21,8 @@ public interface OverworldClient {
      */
     @GetMapping("/{playerId}/keybindings/{binding}")
     KeybindingDTO getKeybindingStatistic(
-            @PathVariable("playerId") final String playerId,
-            @PathVariable("binding") final String binding,
-            @CookieValue("access_token") final String accessToken
+        @PathVariable("playerId") final String playerId,
+        @PathVariable("binding") final String binding,
+        @CookieValue("access_token") final String accessToken
     );
 }
