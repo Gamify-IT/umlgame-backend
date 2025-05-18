@@ -21,6 +21,7 @@ public class UmlTask {
 
     String taskNumber;
 
+    @Column(columnDefinition="TEXT")
     String graph;
 
     String text;
